@@ -5,13 +5,14 @@ import com.bedbath.employee.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
 public class EmployeeController {
 
     @Autowired
-    private EmployeeRepository employeeRepository;
+    EmployeeRepository employeeRepository;
 
     @RequestMapping(value = "/addEmployee", method = RequestMethod.POST)
     public String newEmployee(@RequestBody ReportingEmployees reportingEmployees) {
@@ -21,8 +22,8 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/getAllEmployee")
-    public String getEmployee(ReportingEmployees reportingEmployees) {
-        return employeeRepository.findAll().toString();
+    public List<ReportingEmployees> getEmployee(ReportingEmployees reportingEmployees) {
+        return employeeRepository.findAll();
     }
 
     @RequestMapping(value = "/getEmployee/{id}", produces = "application/json")

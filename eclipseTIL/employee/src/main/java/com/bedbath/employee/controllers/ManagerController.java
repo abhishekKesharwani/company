@@ -1,7 +1,6 @@
 package com.bedbath.employee.controllers;
 
 import com.bedbath.employee.model.Manager;
-import com.bedbath.employee.repository.EmployeeRepository;
 import com.bedbath.employee.repository.ManagerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +12,7 @@ import java.util.Optional;
 public class ManagerController {
 
     @Autowired
-    private EmployeeRepository employeeRepository;
-
-    @Autowired
-    private ManagerRepository managerRepository;
+    ManagerRepository managerRepository;
 
     @RequestMapping(value = "/addManager", method = RequestMethod.POST)
     public Manager addManager(@RequestBody Manager manager) {
@@ -24,14 +20,32 @@ public class ManagerController {
         return managerRepository.save(manager);
     }
 
+    @PutMapping("/updateManagerEmalId/{id}")
+    Manager updateManagerEmalId(@RequestBody Manager newManager, @PathVariable Integer id) {
+        if (managerRepository.findById(id).isPresent()){
+            Manager existingManager = managerRepository.findById(id).get();
+            existingManager.setEmail(newManager.getEmail());
+            return managerRepository.save(existingManager);
+        }
+        else{
+            return null;
+        }
+    }
+
+    @RequestMapping(value = "/deleteManager/{id}", method = RequestMethod.GET)
+    void deleteManager(@PathVariable Integer id) {
+        System.out.println("Manager Data i/p which needs to be deleted " + id);
+        managerRepository.deleteById(id);
+    }
+
     @RequestMapping(value = "/getAllManager", produces = "application/json")
-    public List<Manager> getAllManager(Manager manager) {
+    List<Manager> getAllManager(Manager manager) {
         System.out.println("Manager Data o/p " + managerRepository.findAll().toString());
         return managerRepository.findAll();
     }
 
     @RequestMapping(value = "/getManager/{id}", produces = "application/json")
-    public Optional<Manager> getManager(@PathVariable Integer id) {
+    Optional<Manager> getManager(@PathVariable Integer id) {
         return managerRepository.findById(id);
     }
 }

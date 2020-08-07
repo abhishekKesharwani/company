@@ -1,11 +1,11 @@
 package com.bedbath.employee.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.annotations.DynamicUpdate;
+
+import javax.persistence.*;
 
 @Entity
+@DynamicUpdate
 public class ReportingEmployees {
     @Id
     @GeneratedValue
@@ -17,10 +17,10 @@ public class ReportingEmployees {
     private String phoneNumber;
     private String address1;
     private String city;
-    private String Dept;
+    private String dept;
     private String state;
     private String postalCode;
-    private String Salary;
+    private String salary;
 
     public Long getEmpId() {
         return empId;
@@ -48,10 +48,10 @@ public class ReportingEmployees {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", address1='" + address1 + '\'' +
                 ", city='" + city + '\'' +
-                ", Dept='" + Dept + '\'' +
+                ", Dept='" + dept + '\'' +
                 ", state='" + state + '\'' +
                 ", postalCode='" + postalCode + '\'' +
-                ", Salary='" + Salary + '\'' +
+                ", Salary='" + salary + '\'' +
                 '}';
     }
 
@@ -104,11 +104,11 @@ public class ReportingEmployees {
     }
 
     public String getDept() {
-        return Dept;
+        return dept;
     }
 
     public void setDept(String dept) {
-        Dept = dept;
+        this.dept = dept;
     }
 
     public String getState() {
@@ -128,10 +128,10 @@ public class ReportingEmployees {
     }
 
     public String getSalary() {
-        return Salary;
+        return salary;
     }
 
     public void setSalary(String salary) {
-        Salary = salary;
+        this.salary = salary;
     }
 }

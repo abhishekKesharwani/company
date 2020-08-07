@@ -1,9 +1,12 @@
 package com.bedbath.employee.model;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@DynamicUpdate
 public class Manager {
     @Id
 //    @GeneratedValue
@@ -16,7 +19,7 @@ public class Manager {
     private String dept;
     private String address;
 
-    @OneToMany(targetEntity = ReportingEmployees.class, cascade = {CascadeType.ALL})
+    @OneToMany(targetEntity = ReportingEmployees.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "ManagerId_fk", referencedColumnName = "managerId")
     private List<ReportingEmployees> ReportingEmployees;
 
